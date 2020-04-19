@@ -6,6 +6,9 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
+import Turbolinks from 'turbolinks';
+Turbolinks.start();
+
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
