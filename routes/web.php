@@ -22,9 +22,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('threads', 'ThreadController@index');
-Route::get('threads/{channel:slug}', 'ThreadController@index');
 Route::get('threads/create', 'ThreadController@create');
 Route::get('threads/{channel}/{thread}', 'ThreadController@show');
+Route::get('threads/{channel:slug}', 'ThreadController@index');
 Route::post('threads', 'ThreadController@store');
 
 //Route::resource('threads', 'ThreadController');
