@@ -19,11 +19,17 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        body { padding-bottom: 100px; }
+        .level { display: flex; align-items: center;}
+        .flex { flex: 1; margin-bottom: 0;}
+    </style>
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -47,6 +53,7 @@
                                 @if (auth()->check())
                                     <li><a href="/threads?by={{auth()->user()->name}}" class="dropdown-item">My Threads</a></li>
                                 @endif
+                                <li><a href="/threads?popular=1" class="dropdown-item">Popular Threads</a></li>
                             </ul>
                         </li>
                         <li><a class="nav-link" href="/threads/create">New Thread</a></li>
