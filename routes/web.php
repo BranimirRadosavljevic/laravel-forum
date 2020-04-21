@@ -29,3 +29,4 @@ Route::post('threads', 'ThreadController@store');
 
 //Route::resource('threads', 'ThreadController');
 Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store');
+Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
