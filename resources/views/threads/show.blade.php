@@ -6,8 +6,17 @@
         <div class="col-md-8">
             <div class="card mb-2">
                 <div class="card-header">
-                    <a href="{{route('profile', $thread->creator)}}">{{$thread->creator->name}}</a> posted:
-                    {{$thread->title}}
+                    <div class="level">
+                        <span class="flex">
+                            <a href="{{route('profile', $thread->creator)}}">{{$thread->creator->name}}</a> posted:
+                            {{$thread->title}}
+                        </span>
+                        <form action="{{$thread->path()}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger">Delete Thread</button>
+                        </form>
+                    </div>
                 </div>
 
                 <div class="card-body">
