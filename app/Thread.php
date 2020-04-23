@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
+    use RecordsActivity;
+
     protected $guarded = [];
 
     protected $with = ['creator', 'channel'];
@@ -14,8 +16,7 @@ class Thread extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('replyCount', function ($builder)
-        {
+        static::addGlobalScope('replyCount', function ($builder) {
             $builder->withCount('replies');
         });
     }
@@ -27,7 +28,7 @@ class Thread extends Model
 
     public function replies()
     {
-        return $this->hasMany(Reply::class);            
+        return $this->hasMany(Reply::class);
     }
 
     public function creator()
@@ -40,7 +41,7 @@ class Thread extends Model
         return $this->belongsTo(Channel::class);
     }
 
-    public function addReply ($reply)
+    public function addReply($reply)
     {
         $this->replies()->create($reply);
     }
