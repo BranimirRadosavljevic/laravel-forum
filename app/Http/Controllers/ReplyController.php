@@ -25,11 +25,20 @@ class ReplyController extends Controller
         return back()->with('flash', 'Your reply has been posted!');
     }
 
+    public function update(Reply $reply)
+    {
+        $reply->update(request(['body']));
+    }
+
     public function destroy(Reply $reply)
     {
         $this->authorize('update', $reply);
 
         $reply->delete();
+
+        if (request()->expectsJson()) {
+            return response(['status' => 'Reply deleted']);
+        }
         return back();
     }
 }
