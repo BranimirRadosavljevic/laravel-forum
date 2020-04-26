@@ -25,6 +25,7 @@
         .level { display: flex; align-items: center;}
         .flex { flex: 1; margin-bottom: 0;}
         [v-cloak] { display: none}
+        .heart {width:13px; margin-right: 2px; padding-bottom: 3px;}
     </style>
 </head>
 

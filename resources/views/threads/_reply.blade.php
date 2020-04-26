@@ -1,5 +1,4 @@
-<reply :attributes="{{ $reply }}" inline-template v-cloak
->
+<reply :attributes="{{ $reply }}" inline-template v-cloak>
     <div id="reply-{{ $reply->id }}" class="card mb-2">
         <div class="card-header">
             <div class="level">
@@ -8,15 +7,19 @@
                     {{$reply->created_at->diffForHumans()}}
                 </h6>
 
+                @if (Auth::check())
+                    
                 <div>
-                    <form action="/replies/{{$reply->id}}/favorites" method="POST">
-                        @csrf
-                        <button class="btn btn-primary btn-sm" type="submit"
+                    <favorite :reply="{{ $reply }}" ></favorite>
+                    {{-- <form action="/replies/{{$reply->id}}/favorites" method="POST">
+                            @csrf
+                            <button class="btn btn-primary btn-sm" type="submit"
                             {{$reply->isFavorited() ? 'disabled' : ''}}>
                             {{ $reply->favorites_count }} {{ Str::plural('Favorite', $reply->favorites_count )}}
                         </button>
-                    </form>
+                    </form> --}}
                 </div>
+            @endif
             </div>
         </div>
         <div class="card-body">
