@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "moment": "^2.24.0",
         "turbolinks": "^5.2.0",
         "vue-turbolinks": "^2.1.0"
     }
