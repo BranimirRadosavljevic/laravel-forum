@@ -18,11 +18,15 @@
                         Browse
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        
                         <li><a href="/threads" class="dropdown-item">All Threads</a></li>
+                        
                         @if (auth()->check())
                             <li><a href="/threads?by={{auth()->user()->name}}" class="dropdown-item">My Threads</a></li>
                         @endif
+
                         <li><a href="/threads?popular=1" class="dropdown-item">Popular Threads</a></li>
+                        <li><a href="/threads?unanswered=1" class="dropdown-item">Unanswered Threads</a></li>
                     </ul>
                 </li>
                 <li><a class="nav-link" href="/threads/create">New Thread</a></li>
