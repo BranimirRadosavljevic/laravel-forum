@@ -33,12 +33,16 @@ export default {
     methods: {
         addReply(){
             axios.post(this.endpoint, { body: this.body })
-                .then(response => {
+                .catch(error => {
+
+                    flash(error.response.data, 'danger');
+
+                }).then(({data}) => {
                     this.body = '';
 
                     flash('Your reply has been posted.');
 
-                    this.$emit('created', response.data);
+                    this.$emit('created', data);
                 });
         }
     },

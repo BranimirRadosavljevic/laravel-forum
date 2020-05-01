@@ -69,11 +69,14 @@ export default {
         update() {
             axios.patch('/replies/' + this.data.id, {
                 body: this.body
+            }).catch(error => {
+                flash(error.response.data, 'danger'); 
+            }).then(({data}) => {
+                 this.editing = false;
+                 flash('Updated');
             });
 
-            this.editing = false;
-
-            flash('Updated');
+           
         },
         destroy() {
             axios.delete('/replies/' + this.data.id);
