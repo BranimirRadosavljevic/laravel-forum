@@ -52,16 +52,16 @@ class Thread extends Model
     {
         $reply = $this->replies()->create($reply);
 
-        $this->subscriptions
-            ->filter(function($sub) use ($reply){
-                return $sub->user_id != $reply->user_id;
-        })
-            ->each->notify($reply);
-            // ->each(function($sub) use ($reply){
-            //     $sub->user->notify(new ThreadWasUpdated($this, $reply));
-            // });
-
+        $this->notifySubscribers($reply);
+        
         return $reply;
+    }
+
+    public function notifySubscribers($reply)
+    {
+        $this->subscriptions
+        ->where('user_id', '!=', $reply->user_id)
+        ->each->notify($reply);
     }
 
     public function scopeFilter($query, $filters)
@@ -89,5 +89,11 @@ class Thread extends Model
     public function getIsSubscribedToAttribute()
     {
         return $this->subscriptions()->where('user_id', auth()->id())->exists();
+    }
+
+    public function hasUpdatesFor($user)
+    {
+        $key = $user->visitedThreadCacheKey($this);
+        return $this->updated_at > cache($key);
     }
 }
