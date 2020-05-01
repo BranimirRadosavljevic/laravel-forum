@@ -2027,7 +2027,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['endpoint'],
   data: function data() {
     return {
       body: ''
@@ -2042,7 +2041,7 @@ __webpack_require__.r(__webpack_exports__);
     addReply: function addReply() {
       var _this = this;
 
-      axios.post(this.endpoint, {
+      axios.post(location.pathname + '/replies', {
         body: this.body
       })["catch"](function (error) {
         flash(error.response.data, 'danger');

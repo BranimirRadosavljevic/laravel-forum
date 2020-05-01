@@ -6,7 +6,9 @@ use App\Inspections\Spam;
 use App\Reply;
 use App\Rules\SpamFree;
 use App\Thread;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ReplyController extends Controller
 {
@@ -23,8 +25,12 @@ class ReplyController extends Controller
 
     public function store($channelId, Thread $thread)
     {
-        try {
 
+        if (Gate::denies('create', new Reply)) {
+            return response('You are posting too frequently. Please take a break. :)', 422); 
+        }
+
+        try {
             request()->validate([
                 'body' => [
                     'required',
