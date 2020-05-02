@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
 use App\Inspections\Spam;
+use App\Notifications\YouWereMentioned;
 use App\Reply;
 use App\Rules\SpamFree;
 use App\Thread;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -31,11 +33,24 @@ class ReplyController extends Controller
         //     return response('You are posting too frequently. Please take a break. :)', 422); 
         // }
 
+        
         $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id()
-        ]);
-    
+            ]);
+            
+        preg_match_all('/\@([^\s\.]+)/', $reply->body, $matches);
+
+        $names = $matches[1];
+
+        foreach ($names as $name) {
+            $user = User::whereName($name)->first();
+
+            if ($user) {
+                $user->notify(new YouWereMentioned($reply));
+            }
+        }
+        
         // if(request()->expectsJson()){
         return $reply->load('owner');
         // }
