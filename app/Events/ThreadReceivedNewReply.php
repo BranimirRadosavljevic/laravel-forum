@@ -9,7 +9,7 @@ class ThreadReceivedNewReply
 {
     use Dispatchable, SerializesModels;
 
-    protected $reply;
+    public $reply;
 
     /**
      * Create a new event instance.

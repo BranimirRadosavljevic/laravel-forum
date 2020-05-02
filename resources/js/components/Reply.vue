@@ -1,37 +1,38 @@
 <template>
-    <div :id="'reply-'+id" class="card mb-2">
-        <div class="card-header">
-             <div class="level">
-                <h6 class="flex">
-                    <a :href="'/profiles/'+data.owner.name" v-text="data.owner.name"></a> said
-                    <span v-text="ago"></span>
-                </h6>
+<div :id="'reply-'+id" class="card mb-2">
+    <div class="card-header">
+        <div class="level">
+            <h6 class="flex">
+                <a :href="'/profiles/'+data.owner.name" v-text="data.owner.name"></a> said
+                <span v-text="ago"></span>
+            </h6>
 
-
-                <div v-if="signedIn">
-                    <favorite :reply="data"></favorite>
-                </div>
-
+            <div v-if="signedIn">
+                <favorite :reply="data"></favorite>
             </div>
-        </div>
-        <div class="card-body">
-            <div v-if="editing">
-                <form action="" class="form-group">
-                    <textarea class="form-control" v-model="body"></textarea>
-                </form>
 
-                <button class="btn btn-sm btn-primary" @click="update">Update</button>
-                <button class="btn btn-sm btn-link" @click="editing = false">Cancel</button>
-            </div>
-            <div v-else v-text="body">
-                
-            </div>
-        </div>
-        <div class="card-footer level" v-if="canUpdate">
-            <button class="btn btn-sm btn-dark mr-2" @click="editing = true">Edit</button>
-            <button class="btn btn-sm btn-danger" @click="destroy">Delete</button>
         </div>
     </div>
+    <div class="card-body">
+        <div v-if="editing">
+            <form @submit.prevent="update">
+                <div class="form-group">
+                    <textarea class="form-control" v-model="body" required></textarea>
+                </div>
+
+                <button class="btn btn-sm btn-primary">Update</button>
+                <button class="btn btn-sm btn-link" type="button" @click="editing = false">Cancel</button>
+            </form>
+        </div>
+        <div v-else v-text="body">
+
+        </div>
+    </div>
+    <div class="card-footer level" v-if="canUpdate">
+        <button class="btn btn-sm btn-dark mr-2" @click="editing = true">Edit</button>
+        <button class="btn btn-sm btn-danger" @click="destroy">Delete</button>
+    </div>
+</div>
 </template>
 
 <script>
@@ -41,18 +42,20 @@ import moment from 'moment';
 export default {
     props: ['data'],
 
-    components: { Favorite },
+    components: {
+        Favorite
+    },
 
     data() {
         return {
-            editing: false, 
+            editing: false,
             id: this.data.id,
             body: this.data.body
-        }; 
+        };
     },
 
     computed: {
-        ago(){
+        ago() {
             return moment(this.data.created_at).fromNow() + '...';
         },
         signedIn() {
@@ -70,13 +73,14 @@ export default {
             axios.patch('/replies/' + this.data.id, {
                 body: this.body
             }).catch(error => {
-                flash(error.response.data, 'danger'); 
-            }).then(({data}) => {
-                 this.editing = false;
-                 flash('Updated');
+                flash(error.response.data, 'danger');
+            }).then(({
+                data
+            }) => {
+                this.editing = false;
+                flash('Updated');
             });
 
-           
         },
         destroy() {
             axios.delete('/replies/' + this.data.id);

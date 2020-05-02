@@ -33,12 +33,12 @@ class ReplyController extends Controller
         //     return response('You are posting too frequently. Please take a break. :)', 422); 
         // }
 
-        
+
         $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id()
-            ]);
-            
+        ]);
+
         // if(request()->expectsJson()){
         return $reply->load('owner');
         // }
@@ -50,18 +50,14 @@ class ReplyController extends Controller
     {
         $this->authorize('update', $reply);
 
-        try {
-            request()->validate([
-                'body' => [
-                    'required',
-                    new SpamFree
-                ]
-            ]);
+        request()->validate([
+            'body' => [
+                'required',
+                new SpamFree
+            ]
+        ]);
 
-            $reply->update(request(['body']));
-        } catch (\Exception $e) {
-            return response('Sorry, your reply could not be saved at this time', 422);
-        }
+        $reply->update(request(['body']));
     }
 
     public function destroy(Reply $reply)
