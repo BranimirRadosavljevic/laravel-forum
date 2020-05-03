@@ -3266,7 +3266,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     $('#body').atwho({
       at: "@",
-      delay: 750,
+      delay: 350,
       callbacks: {
         remoteFilter: function remoteFilter(query, callback) {
           $.getJSON("/api/users", {

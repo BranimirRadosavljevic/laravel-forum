@@ -35,7 +35,7 @@ export default {
     mounted() {
         $('#body').atwho({
             at: "@",
-            delay: 750,
+            delay: 350,
             callbacks: {
                 remoteFilter: function(query, callback) {
                     $.getJSON("/api/users", {name: query}, function(usernames){
