@@ -34,6 +34,8 @@
         [v-cloak] { display: none}
         .heart {width:13px; margin-right: 2px; padding-bottom: 3px;}
     </style>
+
+    @yield('header')
 </head>
 
 <body>
