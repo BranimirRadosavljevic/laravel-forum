@@ -23,4 +23,9 @@ class Trending
     {
         return 'trending_threads';
     }
+
+    public function reset()
+    {
+        Redis::del($this->cacheKey());
+    }
 }
