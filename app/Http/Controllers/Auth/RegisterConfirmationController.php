@@ -13,7 +13,8 @@ class RegisterConfirmationController extends Controller
         try{
             User::where('confirmation_token', request('token'))
             ->firstOrFail()
-            ->update(['confirmed' => true]);
+            ->update(['confirmed' => true ]);
+            
         } catch(\Exception $e) {
             return redirect('/threads')->with('flash', 'Invalid token.');
         }
