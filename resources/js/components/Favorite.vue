@@ -20,7 +20,7 @@ export default {
 
     computed: {
         classes() {
-            return ['btn', this.isFavorited ? 'btn-primary' : 'btn-outline-secondary'];
+            return ['btn', this.isFavorited ? 'btn-primary' : 'btn-secondary'];
         }
     },
 
