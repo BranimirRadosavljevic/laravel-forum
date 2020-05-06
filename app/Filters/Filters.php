@@ -30,7 +30,9 @@ abstract class Filters
 
     protected function getFilters()
     {
-        $filters = array_intersect(array_keys($this->request->all()), $this->filters);
-        return $this->request->only($filters);
+        // $filters = array_intersect(array_keys($this->request->all()), $this->filters);
+        // return $this->request->only($filters);
+
+        return array_filter($this->request->only($this->filters));
     }
 }

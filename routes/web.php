@@ -30,6 +30,7 @@ Route::post('threads', 'ThreadController@store')->middleware('must-be-confirmed'
 Route::get('/threads/{channel}/{thread}/replies', 'ReplyController@index');
 
 Route::post('locked-threads/{thread}', 'LockedThreadsController@store')->name('locked-threads.store')->middleware('admin');
+Route::delete('locked-threads/{thread}', 'LockedThreadsController@destroy')->name('locked-threads.destroy')->middleware('admin');
 
 Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store');
 Route::patch('/replies/{reply}', 'ReplyController@update');
