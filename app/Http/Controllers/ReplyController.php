@@ -33,6 +33,9 @@ class ReplyController extends Controller
         //     return response('You are posting too frequently. Please take a break. :)', 422); 
         // }
 
+        if ($thread->locked) {
+            return response('Thread is locked.', 422);
+        }  
 
         $reply = $thread->addReply([
             'body' => request('body'),
