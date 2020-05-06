@@ -34,7 +34,7 @@ class ThreadController extends Controller
         // }
 
         // za brisanje svih trendova
-        //$trending->reset();
+        // $trending->reset();
 
         return view('threads.index', [
             'threads' => $threads,
