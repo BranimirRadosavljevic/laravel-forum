@@ -10,6 +10,7 @@ use App\Trending;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Zttp\Zttp;
 
 class ThreadController extends Controller
 {
@@ -62,14 +63,8 @@ class ThreadController extends Controller
     {
 
         $request->validate([
-            'title' => [
-                'required',
-                new SpamFree
-            ],
-            'body' => [
-                'required',
-                new SpamFree
-            ],
+            'title' => ['required', new SpamFree],
+            'body' => ['required', new SpamFree],
             'channel_id' => 'required|exists:channels,id'
         ]);
 
@@ -120,9 +115,17 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Thread $thread)
+    public function update($channel, Thread $thread)
     {
-        //
+        $this->authorize('update', $thread);
+
+        $data = request()->validate([
+            'title' => ['required', new SpamFree],
+            'body' => ['required', new SpamFree],
+            'channel_id' => 'required|exists:channels,id'
+        ]);
+
+        $thread->update($data);
     }
 
     /**

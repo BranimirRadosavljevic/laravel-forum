@@ -32,7 +32,7 @@ abstract class Filters
     {
         // $filters = array_intersect(array_keys($this->request->all()), $this->filters);
         // return $this->request->only($filters);
-        //proba
+        
         return array_filter($this->request->only($this->filters));
     }
 }
