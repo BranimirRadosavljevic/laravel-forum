@@ -122,10 +122,10 @@ class ThreadController extends Controller
         $data = request()->validate([
             'title' => ['required', new SpamFree],
             'body' => ['required', new SpamFree],
-            'channel_id' => 'required|exists:channels,id'
         ]);
 
         $thread->update($data);
+        return $thread;
     }
 
     /**

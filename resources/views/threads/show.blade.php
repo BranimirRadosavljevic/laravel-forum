@@ -17,7 +17,7 @@
                 <replies @added="repliesCount++" @removed="repliesCount--"></replies>
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" v-cloak>
                 <div class="card mb-2">
                     <div class="card-body">
                         <p>
