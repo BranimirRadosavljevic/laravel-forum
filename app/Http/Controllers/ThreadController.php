@@ -65,7 +65,7 @@ class ThreadController extends Controller
         request()->validate([
             'title' => ['required', new SpamFree],
             'body' => ['required', new SpamFree],
-            'channel_id' => 'required|exists:channels,id'
+            'channel_id' => 'required|exists:channels,id',
         ]);
 
         $thread = Thread::create([

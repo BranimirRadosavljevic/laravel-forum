@@ -45,7 +45,7 @@
 
     <div class="card-body" v-text="body"></div>
 
-    <div class="card-footer" v-if="authorize('owns', thread)">
+    <div class="card-footer" v-if="authorize('owns', t)">
         <button class="btn btn-sm btn-outline-secondary" @click="editing = true">Edit</button>
     </div>
 </div>
