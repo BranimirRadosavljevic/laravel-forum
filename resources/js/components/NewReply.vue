@@ -2,8 +2,10 @@
     <div>
         <div v-if="signedIn">
             <div class="form-group">
-                <textarea name="body" id="body" class="form-control" placeholder="Have something to say?"
-                    rows="5" required v-model="body"></textarea>
+                <wysiwyg name="body" v-model="body" placeholder="Have something to say?" :shouldClear="completed"></wysiwyg>
+
+                <!--<textarea name="body" id="body" class="form-control" placeholder="Have something to say?"
+                    rows="5" required v-model="body"></textarea>-->
             </div>
             
             <button type="submit" class="btn btn-primary mt-2" @click="addReply">Post</button>
@@ -22,7 +24,8 @@ import 'jquery.caret';
 export default {
     data() {
         return {
-            body: ''
+            body: '',
+            completed: false
         };
     },
 
@@ -49,6 +52,7 @@ export default {
 
                 }).then(({data}) => {
                     this.body = '';
+                    this.completed = true;
 
                     flash('Your reply has been posted.');
 
