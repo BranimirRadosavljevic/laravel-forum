@@ -33,6 +33,7 @@
         .flex { flex: 1; margin-bottom: 0;}
         [v-cloak] { display: none}
         .heart {width:13px; margin-right: 2px; padding-bottom: 3px;}
+        .ais-highlight > em { background: yellow; font-style: normal;}
     </style>
 
     @yield('header')

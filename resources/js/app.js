@@ -7,10 +7,12 @@
 require('./bootstrap');
 
 import { turbolinksAdapterMixin } from 'vue-turbolinks';
+import InstantSearch from 'vue-instantsearch';
 
 let authorizations = require('./authorizations');
 
 window.Vue = require('vue');
+Vue.use(InstantSearch);
 
 Vue.prototype.authorize = function(...params) {
     if(!window.App.signedIn) return false;
