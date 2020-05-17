@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <ais-index app-id="{{ config('scout.algolia.id')}}" api-key="c993c6d9cb35cb0ffc7d402dc22d54c2"
+        <ais-index app-id="{{ config('scout.algolia.id')}}" api-key="{{ config('scout.algolia.key')}}"
             index-name="threads" style="display: contents" query="{{request('q')}}">
             <div class="col-md-8">
                 <ais-results>

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-{{-- @section('header')
+@section('header')
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-@endsection --}}
+@endsection
 
 @section('content')
 <div class="container">
@@ -36,9 +36,9 @@
                                 required>{{old('body')}}</textarea> --}}
                             <wysiwyg name="body"></wysiwyg>    
                         </div>
-                        {{-- <div class="form-group">
-                            <div class="g-recaptcha" data-sitekey="6Ldwf_MUAAAAAASSDpGdQdbDubfnlO4NycEHrsr7"></div>
-                        </div> --}}
+                        <div class="form-group">
+                            <div class="g-recaptcha" data-sitekey="{{config('services.recaptcha.key')}}"></div>
+                        </div>
                         {{-- {!! NoCaptcha::display() !!} --}}
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Publish</button>

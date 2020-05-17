@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Channel;
 use App\Filters\ThreadFilters;
+use App\Rules\Recaptcha;
 use App\Rules\SpamFree;
 use App\Thread;
 use App\Trending;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Zttp\Zttp;
+
 
 class ThreadController extends Controller
 {
@@ -59,13 +60,13 @@ class ThreadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Recaptcha $recaptcha)
     {
-
         request()->validate([
             'title' => ['required', new SpamFree],
             'body' => ['required', new SpamFree],
             'channel_id' => 'required|exists:channels,id',
+            'g-recaptcha-response' => ['required', $recaptcha]
         ]);
 
         $thread = Thread::create([
@@ -74,6 +75,10 @@ class ThreadController extends Controller
             'title' => request('title'),
             'body' => request('body')
         ]);
+
+        if (request()->wantsJson()) {
+            return response($thread, 201);
+        }
 
         return redirect($thread->path())->with('flash', 'Your thread has been published!');
     }
